@@ -43,4 +43,3 @@ export function decodedResistorValue([firstColor, secColor, thirdColor]: Color[]
 
 
 
-

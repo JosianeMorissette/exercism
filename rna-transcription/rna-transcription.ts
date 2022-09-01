@@ -1,6 +1,11 @@
-type DnaNucleo = "A" | "C" | "G" | "T"
 
-export function toRnaNucleo(dnaNucleotide: DnaNucleo): string {
+const dna = ["A", "C", "G", "T"] as const
+
+type Dna = (typeof dna)[number]
+
+const isDna = (nucleo: any): nucleo is Dna => { return dna.includes(nucleo) }
+
+export function toRnaNucleo(dnaNucleotide: Dna): string {
   switch (dnaNucleotide) {
     case "A":
       return "U";
@@ -15,19 +20,16 @@ export function toRnaNucleo(dnaNucleotide: DnaNucleo): string {
 }
 
 
-export function toRna(dna: string): string {
+export function toRna(input: string): string {
 
-  return dna
+  return input
     .split("")
     .map((nucleo) => {
-      let dnaNucleo = nucleo as DnaNucleo
-      if (dnaNucleo === "A" || dnaNucleo === "C" || dnaNucleo === "G" || dnaNucleo === "T") {
-        return toRnaNucleo(dnaNucleo)
+      if (isDna(nucleo)) {
+        return toRnaNucleo(nucleo)
       } else {
         throw 'Invalid input DNA.'
       }
-
-
     })
     .join("")
 
